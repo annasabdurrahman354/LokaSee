@@ -9,6 +9,7 @@ import com.bangkit.lokasee.data.response.RegisterResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
@@ -22,6 +23,9 @@ interface ApiService {
         @Part("lat") lat: RequestBody?,
         @Part("lon") lon: RequestBody?,
     ): PostListResponse
+
+    @GET("post")
+    suspend fun getAllPosts() : PostListResponse
 
     @POST("login")
     suspend fun login(@Body params: BodyLogin): LoginResponse

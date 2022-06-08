@@ -1,11 +1,13 @@
 package com.bangkit.lokasee.data
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import com.bangkit.lokasee.data.body.BodyLogin
 import com.bangkit.lokasee.data.body.BodyRegister
 import com.bangkit.lokasee.data.response.LoginResponse
 import com.bangkit.lokasee.data.response.LogoutResponse
+import com.bangkit.lokasee.data.response.PostListResponse
 import com.bangkit.lokasee.data.response.RegisterResponse
 import com.bangkit.lokasee.util.AppPreferences
 import com.bangkit.lokasee.util.retrofit.ApiService
@@ -62,16 +64,15 @@ class Repository(private val apiService: ApiService, private val pref: AppPrefer
         }
     }
 
-//    fun getAllMarkerMaps(token: String, location: Int): LiveData<Result<StoryResponse>> = liveData {
-//        emit(Result.Loading)
-//        try {
-//            val response = apiService.getAllMarkerMaps(token, location)
-//            emit(Result.Success(response))
-//        } catch (e: Exception) {
-//            Log.e(TAG, "onFailure: ${e.message.toString()}")
-//            emit(Result.Error(e.message.toString()))
-//        }
-//    }
+    fun getAllPosts(): LiveData<Result<PostListResponse>> = liveData {
+        emit(Result.Loading)
+        try {
+            val response = apiService.getAllPosts()
+            emit(Result.Success(response))
+        } catch (e: Exception) {
+            emit(Result.Error(e.message.toString()))
+        }
+    }
 //
 //    fun uploadStory(
 //        token: String,
