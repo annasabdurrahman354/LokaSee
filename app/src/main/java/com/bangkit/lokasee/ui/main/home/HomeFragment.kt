@@ -65,4 +65,28 @@ class HomeFragment : Fragment() {
         homeViewModel = factory.create(HomeViewModel::class.java)
     }
 
+    private fun getAAllPost(){
+        homeViewModel.getAllPosts().observe(viewLifecycleOwner){ result->
+            if (result != null) {
+                when (result) {
+                    is Result.Loading -> {
+                        binding.progressBar.visible()
+                    }
+
+                    is Result.Success -> {
+                        binding.progressBar.gone()
+                        // TODO STORE DATA TO ADAPTER
+                    }
+
+                    is Result.Error -> {
+                        binding.progressBar.gone()
+                        // TODO GIVE SOME ERROR
+                        Snackbar.make(binding.root, result.error, Snackbar.LENGTH_LONG).show()
+                    }
+                }
+            }
+        }
+    }
+
+
 }
