@@ -11,8 +11,8 @@ import com.bangkit.lokasee.R
 import com.bangkit.lokasee.data.User
 import com.bangkit.lokasee.data.store.UserStore
 import com.bangkit.lokasee.ui.main.MainActivity
-import com.bangkit.lokasee.data.AppPreferences
-import com.bangkit.lokasee.data.retrofit.ApiConfig
+import com.bangkit.lokasee.util.AppPreferences
+import com.bangkit.lokasee.util.retrofit.ApiConfig
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 
@@ -26,12 +26,21 @@ class AuthActivity : AppCompatActivity() {
         pref = AppPreferences.getInstance(dataStore)
         runBlocking {
             if (pref.getUserToken().first() != "") {
-                UserStore.currentUser = pref.getUserLogin()
+                UserStore.currentUser = User(
+                    pref.getUserID().first(),
+                    pref.getUserName().first(),
+                    pref.getUserEmail().first(),
+                    pref.getUserPhone().first(),
+                    pref.getUserAvatarUrl().first(),
+                    null,
+                    null,
+                    null
+                )
                 UserStore.currentUserToken = pref.getUserToken().first()
-                ApiConfig.TOKEN = UserStore.currentUserToken
+                ApiConfig.TOKEN = UserStore.currentUserToken!!
             }
         }
-        if (UserStore.currentUserToken != "") {
+        if (UserStore.currentUserToken != null) {
             val intent = Intent(this, MainActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)

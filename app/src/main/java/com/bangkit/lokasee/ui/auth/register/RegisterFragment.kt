@@ -118,7 +118,8 @@ class RegisterFragment : Fragment() {
                                     setTitle(getString(R.string.title_alert_success))
                                     setMessage(getString(R.string.message_alert_register_success))
                                     setPositiveButton(getString(R.string.login)) { _, _ ->
-                                        findNavController().navigateUp()
+                                        findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
+                                        // TODO CLEAR ALL BACKSTACK
                                     }
                                     create()
                                     show()

@@ -4,9 +4,9 @@ import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
-import com.bangkit.lokasee.data.repo.Repository
-import com.bangkit.lokasee.data.AppPreferences
-import com.bangkit.lokasee.data.retrofit.ApiConfig
+import com.bangkit.lokasee.data.Repository
+import com.bangkit.lokasee.util.AppPreferences
+import com.bangkit.lokasee.util.retrofit.ApiConfig
 
 object Injection {
     private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "app")

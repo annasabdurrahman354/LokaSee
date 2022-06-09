@@ -8,8 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bangkit.lokasee.R
 import com.bangkit.lokasee.data.Post
 import com.bangkit.lokasee.databinding.ItemPostBinding
-import com.bangkit.lokasee.data.retrofit.ApiConfig
+import com.bangkit.lokasee.util.retrofit.ApiConfig
 import org.imaginativeworld.whynotimagecarousel.model.CarouselItem
+import java.lang.StringBuilder
 
 class SellerPostListAdapter(private var data:MutableList<Post>): RecyclerView.Adapter<SellerPostListAdapter.ListViewHolder>() {
     class ListViewHolder(var binding: ItemPostBinding) : RecyclerView.ViewHolder(binding.root)

@@ -11,6 +11,6 @@ data class Filter (
     var areaMax: Int? = null,
     var distance: Int? = null,
     var idProvinsi: Int? = null,
-    var idKabupaten: Int? = null,
+    var idKota: Int? = null,
     var idKecamatan: Int? = null
 ) : Parcelable

@@ -10,59 +10,59 @@ data class Post(
 	val id: Int,
 
 	@field:SerializedName("title")
-	var title: String,
+	val title: String,
 
 	@field:SerializedName("desc")
-	var desc: String,
+	val desc: String,
 
 	@field:SerializedName("images")
-	var images: List<String>,
+	val images: List<String>,
 
 	@field:SerializedName("area")
-	var area: Int,
+	val area: Int,
 
 	@field:SerializedName("price")
-	var price: Int,
+	val price: Int,
 
 	@field:SerializedName("address")
-	var address: String,
+	val address: String,
 
 	@field:SerializedName("latitude")
-	var latitude: Double,
+	val latitude: Double,
 
 	@field:SerializedName("longitude")
-	var longitude: Double,
+	val longitude: Double,
 
 	@field:SerializedName("user_id")
-	var userId: Int,
+	val userId: Int,
 
 	@field:SerializedName("user")
-	var user: User? = null,
+	val user: User? = null,
 
 	@field:SerializedName("provinsi_id")
-	var provinsiId: Int,
+	val provinsiId: Int,
 
 	@field:SerializedName("provinsi")
-	var provinsi: Provinsi? = null,
+	val provinsi: Provinsi? = null,
 
 	@field:SerializedName("kabupaten_id")
-	var kabupatenId: Int,
+	val kabupatenId: Int,
 
 	@field:SerializedName("kabupaten")
-	var kabupaten: Kabupaten? = null,
+	val kabupaten: Kabupaten? = null,
 
 	@field:SerializedName("kecamatan_id")
-	var kecamatanId: Int,
+	val kecamatanId: Int,
 
 	@field:SerializedName("kecamatan")
-	var kecamatan: Kecamatan? = null,
+	val kecamatan: Kecamatan? = null,
 
 	@field:SerializedName("created_at")
-	var createdAt: String,
+	val createdAt: String,
 
 	@field:SerializedName("updated_at")
-	var updatedAt: String,
+	val updatedAt: String,
 
 	@field:SerializedName("deleted_at")
-	var deletedAt: String? = null,
+	val deletedAt: String? = null,
 ) : Parcelable

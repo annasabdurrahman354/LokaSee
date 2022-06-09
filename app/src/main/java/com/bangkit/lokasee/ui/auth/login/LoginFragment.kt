@@ -102,15 +102,17 @@ class LoginFragment : Fragment() {
                         val resultResponse = result.data.data
                         if (resultResponse!=null){
                             val token = result.data.accessToken
-                            if (token != null) {
-                                loginViewModel.saveUser(
-                                    resultResponse.id,
-                                    resultResponse.name,
-                                    resultResponse.email,
-                                    resultResponse.phoneNumber,
-                                    resultResponse.avatarUrl,
-                                    token,
+                            resultResponse.avatarUrl?.let {
+                                if (token != null) {
+                                    loginViewModel.saveUser(
+                                        resultResponse.id,
+                                        resultResponse.name,
+                                        resultResponse.email,
+                                        resultResponse.phoneNumber,
+                                        it,
+                                        token,
                                     )
+                                }
                             }
 
                             AlertDialog.Builder(requireContext()).apply {

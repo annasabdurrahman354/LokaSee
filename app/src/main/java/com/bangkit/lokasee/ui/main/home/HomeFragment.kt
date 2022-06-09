@@ -1,6 +1,5 @@
 package com.bangkit.lokasee.ui.main.home
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +8,6 @@ import androidx.fragment.app.Fragment
 import com.bangkit.lokasee.data.Result
 import com.bangkit.lokasee.databinding.FragmentHomeBinding
 import com.bangkit.lokasee.ui.ViewModelFactory
-import com.bangkit.lokasee.ui.auth.AuthActivity
 import com.bangkit.lokasee.util.ViewHelper.gone
 import com.bangkit.lokasee.util.ViewHelper.visible
 import com.google.android.material.snackbar.Snackbar
@@ -44,9 +42,6 @@ class HomeFragment : Fragment() {
                             binding.progressBar.gone()
                             Snackbar.make(binding.root, result.data.message, Snackbar.LENGTH_LONG)
                                 .show()
-                            homeViewModel.deleteUser()
-                            val goToAuthActivity = Intent(activity, AuthActivity::class.java)
-                            activity?.startActivity(goToAuthActivity)
                             activity?.finish()
                         }
 

@@ -1,4 +1,4 @@
-package com.bangkit.lokasee.data
+package com.bangkit.lokasee.util
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
@@ -6,9 +6,7 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.runBlocking
 
 class AppPreferences private constructor(private val dataStore: DataStore<Preferences>) {
     private val USER_TOKEN_KEY = stringPreferencesKey("user_token")
@@ -18,48 +16,22 @@ class AppPreferences private constructor(private val dataStore: DataStore<Prefer
     private val USER_PHONE_KEY = stringPreferencesKey("user_phone")
     private val USER_AVATAR_KEY = stringPreferencesKey("user_avatar")
 
-    fun getUserId(): Flow<Int> {
+    fun getUserID(): Flow<Int> {
         return dataStore.data.map { preferences ->
             preferences[USER_ID_KEY] ?: -1
         }
     }
 
-    suspend fun saveUserId(userID: Int) {
+    suspend fun saveUserID(userID: Int) {
         dataStore.edit { preferences ->
             preferences[USER_ID_KEY] = userID
         }
     }
 
-    fun getUserToken(): Flow<String> {
+    fun getUserName(): Flow<String> {
         return dataStore.data.map { preferences ->
-            preferences[USER_TOKEN_KEY] ?: ""
+            preferences[USER_NAME_KEY] ?: ""
         }
-    }
-
-    suspend fun saveUserToken(token: String) {
-        dataStore.edit { preferences ->
-            preferences[USER_TOKEN_KEY] = token
-        }
-    }
-
-    suspend fun getUserLogin(): User{
-        val currentUser = User(-1, "", "", "", "", null, null, null)
-            currentUser.id = dataStore.data.map { preferences ->
-                preferences[USER_ID_KEY] ?: -1
-            }.first()
-            currentUser.name = dataStore.data.map { preferences ->
-                preferences[USER_NAME_KEY] ?: ""
-            }.first()
-            currentUser.email = dataStore.data.map { preferences ->
-                preferences[USER_EMAIL_KEY] ?: ""
-            }.first()
-            currentUser.phoneNumber = dataStore.data.map { preferences ->
-                preferences[USER_PHONE_KEY] ?: ""
-            }.first()
-            currentUser.avatarUrl = dataStore.data.map { preferences ->
-                preferences[USER_AVATAR_KEY] ?: ""
-            }.first()
-        return currentUser
     }
 
     suspend fun saveUserLogin(
@@ -73,21 +45,65 @@ class AppPreferences private constructor(private val dataStore: DataStore<Prefer
         dataStore.edit { preferences ->
             preferences[USER_ID_KEY] = userId
             preferences[USER_NAME_KEY] = userName
-            preferences[USER_EMAIL_KEY] = email
-            preferences[USER_PHONE_KEY] = phoneNumber
-            preferences[USER_AVATAR_KEY] = avatarUrl
+            preferences[USER_EMAIL_KEY] = userName
+            preferences[USER_PHONE_KEY] = userName
+            preferences[USER_AVATAR_KEY] = userName
             preferences[USER_TOKEN_KEY] = token
         }
     }
 
-    suspend fun deleteUserLogin() {
+    suspend fun saveUserName(userName: String) {
         dataStore.edit { preferences ->
-            preferences[USER_ID_KEY] = -1
-            preferences[USER_NAME_KEY] = ""
-            preferences[USER_EMAIL_KEY] = ""
-            preferences[USER_PHONE_KEY] = ""
-            preferences[USER_AVATAR_KEY] = ""
-            preferences[USER_TOKEN_KEY] = ""
+            preferences[USER_NAME_KEY] = userName
+        }
+    }
+
+    fun getUserEmail(): Flow<String> {
+        return dataStore.data.map { preferences ->
+            preferences[USER_EMAIL_KEY] ?: ""
+        }
+    }
+
+    suspend fun saveUserEmail(userEmail: String) {
+        dataStore.edit { preferences ->
+            preferences[USER_EMAIL_KEY] = userEmail
+        }
+    }
+
+    fun getUserPhone(): Flow<String> {
+        return dataStore.data.map { preferences ->
+            preferences[USER_PHONE_KEY] ?: ""
+        }
+    }
+
+    suspend fun saveUserPhone(userPhone: String) {
+        dataStore.edit { preferences ->
+            preferences[USER_PHONE_KEY] = userPhone
+        }
+    }
+
+    fun getUserAvatarUrl(): Flow<String> {
+        return dataStore.data.map { preferences ->
+            preferences[USER_AVATAR_KEY] ?: ""
+        }
+    }
+
+    suspend fun saveUserAvatarUrl(userAvatarUrl: String) {
+        dataStore.edit { preferences ->
+            preferences[USER_AVATAR_KEY] = userAvatarUrl
+        }
+    }
+
+
+    fun getUserToken(): Flow<String> {
+        return dataStore.data.map { preferences ->
+            preferences[USER_TOKEN_KEY] ?: ""
+        }
+    }
+
+    suspend fun saveUserToken(token: String) {
+        dataStore.edit { preferences ->
+            preferences[USER_TOKEN_KEY] = token
         }
     }
 

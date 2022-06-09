@@ -7,6 +7,7 @@ import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
 import android.util.AttributeSet
+import android.util.Patterns
 import android.view.MotionEvent
 import android.view.View
 import androidx.appcompat.widget.AppCompatEditText
@@ -17,7 +18,7 @@ import com.bangkit.lokasee.R
 class EmailEditText: AppCompatEditText, View.OnTouchListener {
 
     private lateinit var clearButtonImage: Drawable
-    //private var errorString: String = context.getString(R.string.str_email_input_invalid)
+    private var errorString: String = context.getString(R.string.str_email_input_invalid)
 
     constructor(context: Context) : super(context) {
         init()
@@ -51,7 +52,9 @@ class EmailEditText: AppCompatEditText, View.OnTouchListener {
             }
 
             override fun afterTextChanged(s: Editable) {
-
+                if (s.toString().isNotEmpty() && !Patterns.EMAIL_ADDRESS.matcher(s.toString()).matches()) {
+                    error = errorString
+                }
             }
         })
     }

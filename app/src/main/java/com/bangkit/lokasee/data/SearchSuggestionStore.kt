@@ -1,7 +1,6 @@
-package com.bangkit.lokasee.data.store
+package com.bangkit.lokasee.data
 
 import com.bangkit.lokasee.R
-import com.bangkit.lokasee.data.SearchSuggestion
 
 /**
  * A static data store of [SearchSuggestion]s.
