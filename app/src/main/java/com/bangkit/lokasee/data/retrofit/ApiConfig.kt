@@ -10,6 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object ApiConfig {
     const val HOST: String = "http://127.0.0.1:8000"
+    const val MODEL: String = "http://34.128.94.85"
     fun getApiService(): ApiService {
         val loggingInterceptor =
             HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
@@ -31,5 +32,28 @@ object ApiConfig {
             .client(client)
             .build()
         return retrofit.create(ApiService::class.java)
+    }
+
+    fun getModelService(): APIModelService {
+        val loggingInterceptor =
+            HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+        val client: OkHttpClient = if (currentUserToken != "") {
+            OkHttpClient.Builder().addInterceptor(Interceptor { chain ->
+                val newRequest: Request = chain.request().newBuilder()
+                    .addHeader("Authorization", "Bearer $currentUserToken")
+                    .build()
+                chain.proceed(newRequest)
+            }).addInterceptor(loggingInterceptor).build()
+        } else {
+            OkHttpClient.Builder()
+                .addInterceptor(loggingInterceptor)
+                .build()
+        }
+        val retrofit = Retrofit.Builder()
+            .baseUrl(MODEL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(client)
+            .build()
+        return retrofit.create(APIModelService::class.java)
     }
 }

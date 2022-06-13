@@ -2,12 +2,28 @@ package com.bangkit.lokasee.data.retrofit
 
 import com.bangkit.lokasee.data.body.BodyLogin
 import com.bangkit.lokasee.data.body.BodyRegister
-import com.bangkit.lokasee.data.response.*
-import com.bangkit.lokasee.data.store.UserStore.currentUserToken
+import com.bangkit.lokasee.data.response.KabupatenListResponse
+import com.bangkit.lokasee.data.response.KecamatanListResponse
+import com.bangkit.lokasee.data.response.LoginResponse
+import com.bangkit.lokasee.data.response.LogoutResponse
+import com.bangkit.lokasee.data.response.ModelResponse
+import com.bangkit.lokasee.data.response.PostGetCreateUpdateDeleteResponse
+import com.bangkit.lokasee.data.response.PostListResponse
+import com.bangkit.lokasee.data.response.ProvinsiListResponse
+import com.bangkit.lokasee.data.response.RegisterResponse
+import com.bangkit.lokasee.data.response.UserUpdateResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import retrofit2.Call
-import retrofit2.http.*
+import retrofit2.http.Body
+import retrofit2.http.DELETE
+import retrofit2.http.GET
+import retrofit2.http.Multipart
+import retrofit2.http.POST
+import retrofit2.http.Part
+import retrofit2.http.PartMap
+import retrofit2.http.Path
+import retrofit2.http.Query
+import retrofit2.http.QueryMap
 
 interface ApiService {
     @GET("post")
@@ -35,7 +51,7 @@ interface ApiService {
     @Multipart
     @POST("post")
     suspend fun testCreatePost(
-        @PartMap params: @JvmSuppressWildcards Map<String,RequestBody>,
+        @PartMap params: @JvmSuppressWildcards Map<String, RequestBody>,
         @Part images: @JvmSuppressWildcards Array<MultipartBody.Part>,
     ): PostGetCreateUpdateDeleteResponse
 
@@ -44,7 +60,7 @@ interface ApiService {
     suspend fun testUpdatePost(
         @Path("id") id: Int,
         @Query("_method") _method: String = "PUT",
-        @PartMap params: @JvmSuppressWildcards Map<String,RequestBody>,
+        @PartMap params: @JvmSuppressWildcards Map<String, RequestBody>,
         @Part images: @JvmSuppressWildcards Array<MultipartBody.Part?>,
     ): PostGetCreateUpdateDeleteResponse
 
@@ -107,7 +123,7 @@ interface ApiService {
     fun updateUser(
         @Path("id") id: Int,
         @Query("_method") _method: String = "PUT",
-        @PartMap params: @JvmSuppressWildcards Map<String,RequestBody>,
+        @PartMap params: @JvmSuppressWildcards Map<String, RequestBody>,
         @Part image: MultipartBody.Part,
     ): UserUpdateResponse
 
@@ -119,4 +135,12 @@ interface ApiService {
 
     @POST("logout")
     suspend fun logout(): LogoutResponse
+}
+
+interface APIModelService {
+    @POST("classify")
+    suspend fun getModel(
+        @Query("nearest_office") nearestOffice: Float,
+        @Query("nearest_school") nearestSchool: Float
+    ): ModelResponse
 }
