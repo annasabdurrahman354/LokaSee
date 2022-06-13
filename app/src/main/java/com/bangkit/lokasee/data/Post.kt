@@ -34,6 +34,9 @@ data class Post(
 	@field:SerializedName("longitude")
 	var longitude: Double,
 
+	@field:SerializedName("rating_restaurant")
+	var ratingRestaurang: String?,
+
 	@field:SerializedName("user_id")
 	var userId: Int,
 

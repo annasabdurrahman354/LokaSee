@@ -71,13 +71,28 @@ class Repository(private val apiService: ApiService, private val pref: AppPrefer
         }
     }
 
-    fun updateUser(id: Int, params: Map<String, RequestBody>, image: MultipartBody.Part): LiveData<Result<UserUpdateResponse>> = liveData {
+    fun updateAvatarUser(id: Int, params: Map<String, RequestBody>, image: MultipartBody.Part): LiveData<Result<UserUpdateResponse>> = liveData {
         emit(Result.Loading)
-        try {
-            val response = apiService.updateUser( id, "PUT", params, image)
-            emit(Result.Success(response))
-        } catch (e: Exception) {
-            emit(Result.Error(e.message.toString()))
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val response = apiService.updateUser( id, "PUT", params, image)
+                emit(Result.Success(response))
+            } catch (e: Exception) {
+                emit(Result.Error(e.message.toString()))
+            }
+        }
+
+    }
+
+    fun updateDataUser(id: Int, params: Map<String, RequestBody>): LiveData<Result<UserUpdateResponse>> = liveData {
+        emit(Result.Loading)
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val response = apiService.updateUserData( id, "PUT", params)
+                emit(Result.Success(response))
+            } catch (e: Exception) {
+                emit(Result.Error(e.message.toString()))
+            }
         }
     }
 

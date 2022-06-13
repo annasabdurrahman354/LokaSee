@@ -21,8 +21,29 @@ data class User(
 	@field:SerializedName("address")
 	var address: String,
 
+	@field:SerializedName("address")
+	var address: String,
+
 	@field:SerializedName("avatar_url")
 	val avatarUrl: String? = null,
+
+	@field:SerializedName("provinsi_id")
+	var provinsiId: Int? = null,
+
+	@field:SerializedName("provinsi")
+	var provinsi: Provinsi? = null,
+
+	@field:SerializedName("kabupaten_id")
+	var kabupatenId: Int? = null,
+
+	@field:SerializedName("kabupaten")
+	var kabupaten: Kabupaten? = null,
+
+	@field:SerializedName("kecamatan_id")
+	var kecamatanId: Int? = null,
+
+	@field:SerializedName("kecamatan")
+	var kecamatan: Kecamatan? = null,
 
 	@field:SerializedName("provinsi_id")
 	var provinsiId: Int? = null,

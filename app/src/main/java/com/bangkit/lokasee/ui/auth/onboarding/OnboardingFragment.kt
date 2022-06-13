@@ -77,14 +77,11 @@ class OnboardingFragment : Fragment() {
 
                         1 -> {
                             binding.apply {
-                                tvCarouselTitle.text = "ITEM 1"
-                                tvCarouselSubtitle.text = "Ini adalah item 1"
+                                tvCarouselTitle.text = "Make Your Business Success"
+                                tvCarouselSubtitle.text = "Helping your business through location perspective."
                             }
                         }
                     }
-
-
-
                 }
             }
         }

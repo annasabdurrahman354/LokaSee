@@ -14,7 +14,9 @@ class ProfileViewModel(private val repository: Repository) : ViewModel() {
     private val _listPost =  MutableLiveData<Result<PostListResponse>>()
     val listPost: LiveData<Result<PostListResponse>> = _listPost
 
-    fun updateUser(id: Int, params: Map<String, RequestBody>, image: MultipartBody.Part) = repository.updateUser(id, params, image)
+    fun updateAvatarUser(id: Int, params: Map<String, RequestBody>, image: MultipartBody.Part) = repository.updateAvatarUser(id, params, image)
+    fun updateDataUser(id: Int, params: Map<String, RequestBody>) = repository.updateDataUser(id, params)
+
     fun saveUser(
         userId: Int,
         userName: String,

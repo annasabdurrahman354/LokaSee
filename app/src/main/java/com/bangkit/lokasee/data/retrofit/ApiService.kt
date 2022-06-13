@@ -108,7 +108,15 @@ interface ApiService {
         @Path("id") id: Int,
         @Query("_method") _method: String = "PUT",
         @PartMap params: @JvmSuppressWildcards Map<String,RequestBody>,
-        @Part image: MultipartBody.Part,
+        @Part image: @JvmSuppressWildcards MultipartBody.Part,
+    ): UserUpdateResponse
+
+    @Multipart
+    @POST("user/{id}")
+    fun updateUserData(
+        @Path("id") id: Int,
+        @Query("_method") _method: String = "PUT",
+        @PartMap params: @JvmSuppressWildcards Map<String,RequestBody>
     ): UserUpdateResponse
 
     @POST("login")

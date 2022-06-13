@@ -85,7 +85,7 @@ class ProfileFragment : Fragment() {
             binding.inputUserPhone.editText?.setText(currentUser.phoneNumber)
         }
 
-        binding.btnUpdateProfile.setOnClickListener {
+        /*binding.btnUpdateProfile.setOnClickListener {
             when {
                 binding.inputUserPhone.editText?.text.toString().isEmpty() -> {
                     with(binding) {
@@ -99,7 +99,7 @@ class ProfileFragment : Fragment() {
                         inputUserAddress.requestFocus()
                     }
                 }
-                else -> updateUser()
+                else -> updateDataUser()
             }
         }
 
@@ -118,6 +118,7 @@ class ProfileFragment : Fragment() {
                     startForInputImageResult.launch(intent)
                 }
         }
+        */
 
         Glide.with(requireActivity())
             .load(getAvatarUrl(currentUser))
@@ -190,7 +191,7 @@ class ProfileFragment : Fragment() {
         val fileAvatar = convertBitmapToFile(currentAvatar!!, requireContext())
         val imagesBody: RequestBody = RequestBody.create("image/*".toMediaTypeOrNull(), fileAvatar)
         val imagePart =  MultipartBody.Part.createFormData("image", fileAvatar.nameWithoutExtension, imagesBody);
-        profileViewModel.updateUser(currentUser.id, requestBody, imagePart).observe(viewLifecycleOwner) { result ->
+        profileViewModel.updateAvatarUser(currentUser.id, requestBody, imagePart).observe(viewLifecycleOwner) { result ->
             if (result != null) {
                 when (result) {
                     is Result.Loading -> {
@@ -223,16 +224,13 @@ class ProfileFragment : Fragment() {
         }
     }
 
-    fun updateUser(){
+    fun updateDataUser(){
         val requestBody: HashMap<String, RequestBody> = HashMap()
         requestBody["name"] = createPartFromString(currentUser.name)
         requestBody["email"] = createPartFromString(currentUser.email)
         requestBody["phone_number"] = createPartFromString(binding.inputUserPhone.editText?.text.toString())
         requestBody["address"] = createPartFromString(binding.inputUserAddress.editText?.text.toString())
-        val fileAvatar = convertBitmapToFile(currentAvatar!!, requireContext())
-        val imagesBody: RequestBody = RequestBody.create("image/*".toMediaTypeOrNull(), fileAvatar)
-        val imagePart =  MultipartBody.Part.createFormData("image", fileAvatar.nameWithoutExtension, imagesBody);
-        profileViewModel.updateUser(currentUser.id, requestBody, imagePart).observe(viewLifecycleOwner) { result ->
+        profileViewModel.updateDataUser(currentUser.id, requestBody).observe(viewLifecycleOwner) { result ->
             if (result != null) {
                 when (result) {
                     is Result.Loading -> {

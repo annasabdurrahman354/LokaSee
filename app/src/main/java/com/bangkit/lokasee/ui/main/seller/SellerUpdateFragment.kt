@@ -214,54 +214,112 @@ class SellerUpdateFragment : Fragment(), OnMapReadyCallback {
         val postLatitude = latLong?.latitude
         val postLongitude = latLong!!.longitude
 
-        val requestBody: HashMap<String, RequestBody> = HashMap()
-        requestBody["title"] = createPartFromString(postTitle)
-        requestBody["desc"] = createPartFromString(postDesc)
-        requestBody["price"] = createPartFromString(postPrice)
-        requestBody["area"] = createPartFromString(postArea)
-        requestBody["address"] = createPartFromString(postAddress)
-        requestBody["latitude"] = createPartFromString(postLatitude.toString())
-        requestBody["longitude"] = createPartFromString(postLongitude.toString())
-        requestBody["user_id"] = createPartFromString(currentUser.id.toString())
-        requestBody["provinsi_id"] = createPartFromString(postProvinsi.id.toString())
-        requestBody["kabupaten_id"] = createPartFromString(postKabupaten.id.toString())
-        requestBody["kecamatan_id"] = createPartFromString(postKecamatan.id.toString())
+        when {
+            postTitle.isEmpty() -> {
+                with(binding) {
+                    inputPostTitle.error = "Please input title first!"
+                    inputPostTitle.requestFocus()
+                }
+            }
+            postDesc.isEmpty() -> {
+                with(binding) {
+                    inputPostDesc.error = "Please input description first!"
+                    inputPostDesc.requestFocus()
+                }
+            }
+            postPrice.isEmpty() -> {
+                with(binding) {
+                    inputPostPrice.error = "Please input price first!"
+                    inputPostPrice.requestFocus()
+                }
+            }
+            postArea.isEmpty() -> {
+                with(binding) {
+                    inputPostArea.error = "Please input area wide first!"
+                    inputPostArea.requestFocus()
+                }
+            }
+            postAddress.isEmpty() -> {
+                with(binding) {
+                    inputPostAddress.error = "Please input address first!"
+                    inputPostAddress.requestFocus()
+                }
+            }
+            binding.selectPostProvinsi.editText?.text.toString().isEmpty() -> {
+                with(binding) {
+                    selectPostProvinsi.error = "Please select region first!"
+                    selectPostProvinsi.requestFocus()
+                }
+            }
+            binding.selectPostKabupaten.editText?.text.toString().isEmpty() -> {
+                with(binding) {
+                    selectPostKabupaten.error = "Please input city first!"
+                    selectPostKabupaten.requestFocus()
+                }
+            }
+            binding.selectPostKecamatan.editText?.text.toString().isEmpty() -> {
+                with(binding) {
+                    selectPostKecamatan.error = "Please input kecamatan first!"
+                    selectPostKecamatan.requestFocus()
+                }
+            }
+            postLatitude.toString().isEmpty()->{
+                Toast.makeText(requireActivity(), "Please select location by long pressing in map!", Toast.LENGTH_LONG).show()
+            }
+            selectedImages.isEmpty() -> {
+                Toast.makeText(requireActivity(), "Please select image first!", Toast.LENGTH_LONG).show()
+            }
+            else -> {
+                val requestBody: HashMap<String, RequestBody> = HashMap()
+                requestBody["title"] = createPartFromString(postTitle)
+                requestBody["desc"] = createPartFromString(postDesc)
+                requestBody["price"] = createPartFromString(postPrice)
+                requestBody["area"] = createPartFromString(postArea)
+                requestBody["address"] = createPartFromString(postAddress)
+                requestBody["latitude"] = createPartFromString(postLatitude.toString())
+                requestBody["longitude"] = createPartFromString(postLongitude.toString())
+                requestBody["user_id"] = createPartFromString(currentUser.id.toString())
+                requestBody["provinsi_id"] = createPartFromString(postProvinsi.id.toString())
+                requestBody["kabupaten_id"] = createPartFromString(postKabupaten.id.toString())
+                requestBody["kecamatan_id"] = createPartFromString(postKecamatan.id.toString())
 
-        val postImagesParts: Array<MultipartBody.Part?> = arrayOfNulls(
-            selectedImages.size
-        )
+                val postImagesParts: Array<MultipartBody.Part?> = arrayOfNulls(
+                    selectedImages.size
+                )
 
-        val postImagesFile = mutableListOf<File>()
+                val postImagesFile = mutableListOf<File>()
 
-        for (index in 0 until selectedImages.size) {
-            postImagesFile.add(convertBitmapToFile(selectedImages[index], requireContext()))
-            val imagesBody: RequestBody = RequestBody.create("image/*".toMediaTypeOrNull(), postImagesFile[index])
-            postImagesParts[index] =  MultipartBody.Part.createFormData("images[]", postImagesFile[index].nameWithoutExtension, imagesBody)
-        }
+                for (index in 0 until selectedImages.size) {
+                    postImagesFile.add(convertBitmapToFile(selectedImages[index], requireContext()))
+                    val imagesBody: RequestBody = RequestBody.create("image/*".toMediaTypeOrNull(), postImagesFile[index])
+                    postImagesParts[index] =  MultipartBody.Part.createFormData("images[]", postImagesFile[index].nameWithoutExtension, imagesBody)
+                }
 
-        val pDialog = SweetAlertDialog(requireContext(), SweetAlertDialog.PROGRESS_TYPE)
-        
-        pDialog.progressHelper.barColor = Color.parseColor("#A5DC86")
-        pDialog.titleText = "Updating Post"
-        pDialog.setCancelable(false)
-        pDialog.show()
+                val pDialog = SweetAlertDialog(requireContext(), SweetAlertDialog.PROGRESS_TYPE)
 
-        sellerViewModel.updatePost(post.id, requestBody, postImagesParts).observe(viewLifecycleOwner) {result ->
-            if (result != null) {
-                when (result) {
-                    is Result.Success -> {
-                        val provinsiData = result.data.data
-                        if (provinsiData != null){
-                            pDialog.dismiss()
-                            findNavController().navigateUp()
-                            Toast.makeText(requireContext(), "Post successfully updated!", Toast.LENGTH_LONG).show()
+                pDialog.progressHelper.barColor = Color.parseColor("#A5DC86")
+                pDialog.titleText = "Updating Post"
+                pDialog.setCancelable(false)
+                pDialog.show()
+
+                sellerViewModel.updatePost(post.id, requestBody, postImagesParts).observe(viewLifecycleOwner) {result ->
+                    if (result != null) {
+                        when (result) {
+                            is Result.Success -> {
+                                val provinsiData = result.data.data
+                                if (provinsiData != null){
+                                    pDialog.dismiss()
+                                    findNavController().navigateUp()
+                                    Toast.makeText(requireContext(), "Post successfully updated!", Toast.LENGTH_LONG).show()
+                                }
+                                pDialog.hide()
+                            }
+                            is Result.Error -> {
+                                pDialog.hide()
+                                Log.e("Error",  result.error)
+                                Toast.makeText(requireContext(), result.error, Toast.LENGTH_LONG).show()
+                            }
                         }
-                        pDialog.hide()
-                    }
-                    is Result.Error -> {
-                        pDialog.hide()
-                        Log.e("Error",  result.error)
-                        Toast.makeText(requireContext(), result.error, Toast.LENGTH_LONG).show()
                     }
                 }
             }
