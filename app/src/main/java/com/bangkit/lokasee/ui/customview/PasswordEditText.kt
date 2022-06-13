@@ -17,7 +17,7 @@ import com.bangkit.lokasee.R
 class PasswordEditText: AppCompatEditText, View.OnTouchListener {
 
     private lateinit var clearButtonImage: Drawable
-    //private var errorString: String = context.getString(R.string.str_password_input_invalid)
+    private var errorString: String = context.getString(R.string.str_password_input_invalid)
 
     constructor(context: Context) : super(context) {
         init()
@@ -53,7 +53,9 @@ class PasswordEditText: AppCompatEditText, View.OnTouchListener {
             }
 
             override fun afterTextChanged(s: Editable) {
-
+                if (s.toString().isNotEmpty() && s.toString().length < 6) {
+                    error = errorString
+                }
             }
         })
     }

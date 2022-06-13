@@ -1,7 +1,7 @@
 package com.bangkit.lokasee.ui.auth.register
 
 import androidx.lifecycle.ViewModel
-import com.bangkit.lokasee.data.repo.Repository
+import com.bangkit.lokasee.data.Repository
 
 class RegisterViewModel(private val repository: Repository) : ViewModel() {
 

@@ -3,7 +3,7 @@ package com.bangkit.lokasee.ui
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.bangkit.lokasee.data.repo.Repository
+import com.bangkit.lokasee.data.Repository
 import com.bangkit.lokasee.di.Injection
 import com.bangkit.lokasee.ui.auth.login.LoginViewModel
 import com.bangkit.lokasee.ui.auth.register.RegisterViewModel
