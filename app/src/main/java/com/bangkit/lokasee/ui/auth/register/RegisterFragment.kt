@@ -1,19 +1,18 @@
 package com.bangkit.lokasee.ui.auth.register
 
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import cn.pedant.SweetAlert.SweetAlertDialog
 import com.bangkit.lokasee.R
 import com.bangkit.lokasee.data.Result
 import com.bangkit.lokasee.databinding.FragmentRegisterBinding
 import com.bangkit.lokasee.ui.ViewModelFactory
-import com.bangkit.lokasee.util.ViewHelper.gone
-import com.bangkit.lokasee.util.ViewHelper.visible
 
 class RegisterFragment : Fragment() {
 
@@ -42,57 +41,63 @@ class RegisterFragment : Fragment() {
 
     private fun setupAction() {
         binding.btnRegister.setOnClickListener {
-            binding.progressBar.gone()
             val name = binding.inputName.text.toString()
             val email = binding.inputEmail.text.toString()
             val phoneNumber = binding.inputPhoneNumber.text.toString()
             val password = binding.inputPassword.text.toString()
+            val address = binding.inputAddress.text.toString()
             when {
                 name.isEmpty() -> {
                     with(binding) {
                         inputName.error = getString(R.string.error_input_name)
                         inputName.requestFocus()
-                        binding.progressBar.gone()
                     }
                 }
                 email.isEmpty() -> {
                     with(binding) {
                         inputEmail.error = getString(R.string.error_input_email)
                         inputEmail.requestFocus()
-                        progressBar.gone()
                     }
                 }
-                phoneNumber.isEmpty() -> {
+                phoneNumber.isEmpty()  -> {
                     with(binding) {
                         inputPhoneNumber.error = getString(R.string.error_input_phone_number)
                         inputPhoneNumber.requestFocus()
-                        progressBar.gone()
+                    }
+                }
+                phoneNumber.length > 13  -> {
+                    with(binding) {
+                        inputPhoneNumber.error = "Phone number is invalid!"
+                        inputPhoneNumber.requestFocus()
+                    }
+                }
+                address.isEmpty()  -> {
+                    with(binding) {
+                        inputAddress.error = "Please insert your address!"
+                        inputAddress.requestFocus()
                     }
                 }
                 !Patterns.EMAIL_ADDRESS.matcher(email).matches() -> {
                     with(binding) {
                         inputEmail.error = getString(R.string.error_email_not_valid)
                         inputEmail.requestFocus()
-                        progressBar.gone()
                     }
                 }
                 password.isEmpty() -> {
                     with(binding) {
                         inputPassword.error = getString(R.string.error_input_password)
                         inputPassword.requestFocus()
-                        progressBar.gone()
                     }
                 }
-                password.length < 6 -> {
+                password.length < 8 -> {
                     with(binding) {
                         inputPassword.error =
-                            getString(R.string.error_password_less_than_6_char)
+                            getString(R.string.error_password_less_than_8_char)
                         inputPassword.requestFocus()
-                        progressBar.gone()
                     }
                 }
                 else -> {
-                    saveUser(name, email, phoneNumber, password)
+                    register(name, email, phoneNumber, address, password)
                 }
             }
         }
@@ -102,53 +107,41 @@ class RegisterFragment : Fragment() {
         }
     }
 
-    private fun saveUser(name: String, email: String, phoneNumber: String, password: String) {
-        registerViewModel.register(name, email, phoneNumber, password)
+    private fun register(name: String, email: String, phoneNumber: String, address: String, password: String) {
+        val pDialog = SweetAlertDialog(requireContext(), SweetAlertDialog.PROGRESS_TYPE)
+        pDialog.progressHelper.barColor = Color.parseColor("#A5DC86")
+        pDialog.titleText = "Please Wait!"
+        pDialog.setCancelable(false)
+        pDialog.show()
+        registerViewModel.register(name, email, phoneNumber, address, password)
             .observe(viewLifecycleOwner) { result ->
                 if (result != null) {
                     when (result) {
-                        is Result.Loading -> {
-                            binding.progressBar.visible()
-                        }
-
                         is Result.Success -> {
-                            binding.progressBar.gone()
-                            if (result.data.data!=null){
-                                AlertDialog.Builder(requireContext()).apply {
-                                    setTitle(getString(R.string.title_alert_success))
-                                    setMessage(getString(R.string.message_alert_register_success))
-                                    setPositiveButton(getString(R.string.login)) { _, _ ->
-                                        findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
-                                        // TODO CLEAR ALL BACKSTACK
-                                    }
-                                    create()
-                                    show()
+                            if (result.data.data!=null) {
+                                pDialog.changeAlertType(SweetAlertDialog.SUCCESS_TYPE)
+                                pDialog.titleText = getString(R.string.title_alert_success)
+                                pDialog.contentText = getString(R.string.message_alert_register_success)
+                                pDialog.setConfirmClickListener {
+                                    findNavController().navigateUp()
+                                    pDialog.hide()
                                 }
+                                pDialog.show()
+
                             } else {
-                                AlertDialog.Builder(requireContext()).apply {
-                                    setTitle(getString(R.string.title_alert_failed))
-                                    setMessage(result.data.message)
-                                    setPositiveButton(getString(R.string.back)) { dialog, _ ->
-                                        dialog.dismiss()
-                                    }
-                                    create()
-                                    show()
-                                }
+                                pDialog.changeAlertType(SweetAlertDialog.ERROR_TYPE)
+                                pDialog.titleText = getString(R.string.title_alert_failed)
+                                pDialog.contentText = result.data.message
+                                pDialog.show()
                             }
 
                         }
 
                         is Result.Error -> {
-                            binding.progressBar.gone()
-                            AlertDialog.Builder(requireContext()).apply {
-                                setTitle(getString(R.string.title_alert_failed))
-                                setMessage(getString(R.string.message_alert_register_failed))
-                                setPositiveButton(getString(R.string.back)) { dialog, _ ->
-                                    dialog.dismiss()
-                                }
-                                create()
-                                show()
-                            }
+                            pDialog.changeAlertType(SweetAlertDialog.ERROR_TYPE)
+                            pDialog.titleText = getString(R.string.title_alert_failed)
+                            pDialog.contentText = result.error
+                            pDialog.show()
                         }
                     }
 

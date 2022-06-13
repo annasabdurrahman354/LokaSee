@@ -20,7 +20,7 @@
         android:id="@+id/bottom_nav_drawer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:name="com.bangkit.lokasee.ui.main.BottomNavDrawerFragment"/>
+        android:name="com.bangkit.lokasee.ui.main.navigation.BottomNavDrawerFragment"/>
 
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottom_app_bar"
@@ -28,8 +28,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         app:fabAlignmentMode="center"
-        app:fabCradleRoundedCornerRadius="@dimen/bottom_app_bar_fab_cradle_corner_radius"
         app:fabCradleMargin="@dimen/bottom_app_bar_fab_cradle_margin"
+        app:fabCradleRoundedCornerRadius="@dimen/bottom_app_bar_fab_cradle_corner_radius"
         app:hideOnScroll="true">
 
         <LinearLayout

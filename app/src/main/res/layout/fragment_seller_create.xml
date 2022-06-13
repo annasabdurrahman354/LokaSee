@@ -2,9 +2,11 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayout1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.seller.SellerCreateFragment">
+    android:fitsSystemWindows="true"
+    tools:context=".ui.main.seller.SellerCreateFragment">
 
     <ImageButton
         android:id="@+id/btnBack"
@@ -48,9 +50,10 @@
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginTop="16dp"
         android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView1">
@@ -68,7 +71,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:hint="Title"
+                android:hint="Set post title"
                 app:boxBackgroundColor="@color/lokasee_blue_100"
                 app:boxBackgroundMode="filled"
                 app:boxCornerRadiusBottomEnd="@dimen/lokasee_large_component_corner_radius"
@@ -91,7 +94,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:hint="Description"
+                android:hint="Set post description"
                 app:boxBackgroundColor="@color/lokasee_blue_100"
                 app:boxBackgroundMode="filled"
                 app:boxCornerRadiusBottomEnd="@dimen/lokasee_large_component_corner_radius"
@@ -104,7 +107,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:inputType="textMultiLine" />
+                    android:inputType="text|textMultiLine" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -115,7 +118,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:hint="Land Type"
+                android:hint="Set land type"
                 android:visibility="gone"
                 app:boxBackgroundColor="@color/lokasee_blue_100"
                 app:boxBackgroundMode="filled"
@@ -139,7 +142,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:hint="Price"
+                android:hint="Set land price"
                 app:boxBackgroundColor="@color/lokasee_blue_100"
                 app:boxBackgroundMode="filled"
                 app:boxCornerRadiusBottomEnd="@dimen/lokasee_large_component_corner_radius"
@@ -162,7 +165,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:hint="Area"
+                android:hint="Set land area"
                 app:boxBackgroundColor="@color/lokasee_blue_100"
                 app:boxBackgroundMode="filled"
                 app:boxCornerRadiusBottomEnd="@dimen/lokasee_large_component_corner_radius"
@@ -175,7 +178,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number|numberDecimal" />
+                    android:inputType="number" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -185,7 +188,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:hint="Address"
+                android:hint="Set land address"
                 app:boxBackgroundColor="@color/lokasee_blue_100"
                 app:boxBackgroundMode="filled"
                 app:boxCornerRadiusBottomEnd="@dimen/lokasee_large_component_corner_radius"
@@ -209,7 +212,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:hint="Region"
+                android:hint="Select post region"
                 app:boxBackgroundColor="@color/lokasee_blue_100"
                 app:boxCornerRadiusBottomEnd="@dimen/lokasee_large_component_corner_radius"
                 app:boxCornerRadiusBottomStart="@dimen/lokasee_large_component_corner_radius"
@@ -219,6 +222,7 @@
                 app:boxStrokeWidthFocused="0dp">
 
                 <AutoCompleteTextView
+                    android:id="@+id/atvProvinsi"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="none" />
@@ -232,7 +236,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:hint="City"
+                android:hint="Select post city"
                 app:boxBackgroundColor="@color/lokasee_blue_100"
                 app:boxCornerRadiusBottomEnd="@dimen/lokasee_large_component_corner_radius"
                 app:boxCornerRadiusBottomStart="@dimen/lokasee_large_component_corner_radius"
@@ -242,6 +246,7 @@
                 app:boxStrokeWidthFocused="0dp">
 
                 <AutoCompleteTextView
+                    android:id="@+id/atvKabupaten"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="none" />
@@ -255,7 +260,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:hint="District"
+                android:hint="Select post district"
                 app:boxBackgroundColor="@color/lokasee_blue_100"
                 app:boxCornerRadiusBottomEnd="@dimen/lokasee_large_component_corner_radius"
                 app:boxCornerRadiusBottomStart="@dimen/lokasee_large_component_corner_radius"
@@ -265,10 +270,48 @@
                 app:boxStrokeWidthFocused="0dp">
 
                 <AutoCompleteTextView
+                    android:id="@+id/atvKecamatan"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="none" />
             </com.google.android.material.textfield.TextInputLayout>
+
+            <ProgressBar
+                android:id="@+id/progLocation"
+                style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Small"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp" />
+
+            <Button
+                android:id="@+id/btnReload"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="8dp"
+                android:drawableLeft="@drawable/ic_refresh"
+                android:text="Reload Location"
+                android:textAppearance="@style/TextAppearance.LokaSee.Button"
+                android:visibility="gone"
+                app:iconPadding="8dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:text="Long Click to Select Location"
+                android:textAppearance="@style/TextAppearance.LokaSee.Subtitle1" />
+
+            <fragment
+                android:id="@+id/map"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
+                android:layout_width="match_parent"
+                android:layout_height="350dp"
+                android:layout_marginTop="8dp" />
 
             <Button
                 android:id="@+id/btnPostAddImage"
@@ -281,7 +324,7 @@
                 android:backgroundTint="@color/lokasee_blue_300"
                 android:drawableLeft="@drawable/ic_add"
                 android:drawableTint="@color/white"
-                android:text="Image"
+                android:text="Add Image"
                 android:textAppearance="@style/TextAppearance.LokaSee.Button"
                 app:iconTint="@color/color_on_primary_surface_emphasis_high" />
 

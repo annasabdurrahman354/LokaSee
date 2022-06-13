@@ -31,6 +31,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:hint="Any land type"
+            android:visibility="gone"
             app:boxBackgroundColor="@color/lokasee_blue_100"
             app:boxBackgroundMode="filled"
             app:boxCornerRadiusBottomEnd="@dimen/lokasee_large_component_corner_radius"
@@ -68,12 +69,13 @@
                 app:boxCornerRadiusTopEnd="@dimen/lokasee_large_component_corner_radius"
                 app:boxCornerRadiusTopStart="@dimen/lokasee_large_component_corner_radius"
                 app:boxStrokeWidth="0dp"
-                app:boxStrokeWidthFocused="0dp">
+                app:boxStrokeWidthFocused="0dp"
+                app:prefixText="Rp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number|numberDecimal" />
+                    android:inputType="number" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -90,12 +92,13 @@
                 app:boxCornerRadiusTopEnd="@dimen/lokasee_large_component_corner_radius"
                 app:boxCornerRadiusTopStart="@dimen/lokasee_large_component_corner_radius"
                 app:boxStrokeWidth="0dp"
-                app:boxStrokeWidthFocused="0dp">
+                app:boxStrokeWidthFocused="0dp"
+                app:prefixText="Rp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number|numberDecimal" />
+                    android:inputType="number" />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
@@ -121,12 +124,13 @@
                 app:boxCornerRadiusTopEnd="@dimen/lokasee_large_component_corner_radius"
                 app:boxCornerRadiusTopStart="@dimen/lokasee_large_component_corner_radius"
                 app:boxStrokeWidth="0dp"
-                app:boxStrokeWidthFocused="0dp">
+                app:boxStrokeWidthFocused="0dp"
+                app:suffixText="m²">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number|numberDecimal" />
+                    android:inputType="number" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -135,7 +139,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
                 android:layout_weight="0.5"
-                android:hint="Set area min"
+                android:hint="Set area max"
                 app:boxBackgroundColor="@color/lokasee_blue_100"
                 app:boxBackgroundMode="filled"
                 app:boxCornerRadiusBottomEnd="@dimen/lokasee_large_component_corner_radius"
@@ -143,12 +147,13 @@
                 app:boxCornerRadiusTopEnd="@dimen/lokasee_large_component_corner_radius"
                 app:boxCornerRadiusTopStart="@dimen/lokasee_large_component_corner_radius"
                 app:boxStrokeWidth="0dp"
-                app:boxStrokeWidthFocused="0dp">
+                app:boxStrokeWidthFocused="0dp"
+                app:suffixText="m²">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number|numberDecimal" />
+                    android:inputType="number" />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
@@ -164,6 +169,7 @@
 
             <Button
                 android:id="@+id/btnApplyFilter"
+                style="@style/Widget.MaterialComponents.Button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="4dp"

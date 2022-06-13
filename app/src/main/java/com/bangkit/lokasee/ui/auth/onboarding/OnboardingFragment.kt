@@ -38,7 +38,6 @@ class OnboardingFragment : Fragment() {
         list.add(
             CarouselItem(
                 "https://images.unsplash.com/photo-1532581291347-9c39cf10a73c?w=1080",
-                "Photo by Aaron Wu on Unsplash"
             )
         )
 
@@ -71,8 +70,8 @@ class OnboardingFragment : Fragment() {
                     when (position){
                         0 -> {
                             binding.apply {
-                                tvCarouselTitle.text = "ITEM 0"
-                                tvCarouselSubtitle.text = "Ini adalah item 0"
+                                tvCarouselTitle.text = "Find the Perfect Place"
+                                tvCarouselSubtitle.text = "Find perfect place for your next business with our recommendation system."
                             }
                         }
 

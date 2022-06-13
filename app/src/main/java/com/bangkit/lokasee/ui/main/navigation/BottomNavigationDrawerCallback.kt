@@ -1,4 +1,4 @@
-package com.bangkit.lokasee.ui.main
+package com.bangkit.lokasee.ui.main.navigation
 
 import android.annotation.SuppressLint
 import android.view.View

@@ -64,6 +64,7 @@
             app:boxStrokeWidthFocused="0dp">
 
             <AutoCompleteTextView
+                android:id="@+id/atvProvinsi"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="none" />
@@ -87,6 +88,7 @@
             app:boxStrokeWidthFocused="0dp">
 
             <AutoCompleteTextView
+                android:id="@+id/atvKabupaten"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="none" />
@@ -110,12 +112,34 @@
             app:boxStrokeWidthFocused="0dp">
 
             <AutoCompleteTextView
+                android:id="@+id/atvKecamatan"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="none" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <ProgressBar
+            android:id="@+id/progLocation"
+            style="@android:style/Widget.Material.Light.ProgressBar.Small"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp" />
+
+        <Button
+            android:id="@+id/btnReload"
+            style="@style/Widget.MaterialComponents.Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp"
+            android:paddingLeft="32dp"
+            android:paddingRight="32dp"
+            android:text="Reload"
+            android:textAppearance="@style/TextAppearance.LokaSee.Button"
+            android:visibility="gone" />
+
         <LinearLayout
+            android:id="@+id/lnrApply"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginStart="16dp"
@@ -123,10 +147,12 @@
             android:layout_marginEnd="16dp"
             android:gravity="center_horizontal"
             android:orientation="horizontal"
+            android:visibility="gone"
             android:weightSum="1">
 
             <Button
                 android:id="@+id/btnApplyFilter"
+                style="@style/Widget.MaterialComponents.Button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="4dp"

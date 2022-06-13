@@ -1,6 +1,7 @@
 package com.bangkit.lokasee.data
 
 import android.os.Parcelable
+import com.bangkit.lokasee.data.retrofit.ApiConfig
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
@@ -10,59 +11,59 @@ data class Post(
 	val id: Int,
 
 	@field:SerializedName("title")
-	val title: String,
+	var title: String,
 
 	@field:SerializedName("desc")
-	val desc: String,
+	var desc: String,
 
 	@field:SerializedName("images")
-	val images: List<String>,
+	var images: List<String>,
 
 	@field:SerializedName("area")
-	val area: Int,
+	var area: Int,
 
 	@field:SerializedName("price")
-	val price: Int,
+	var price: Long,
 
 	@field:SerializedName("address")
-	val address: String,
+	var address: String,
 
 	@field:SerializedName("latitude")
-	val latitude: Double,
+	var latitude: Double,
 
 	@field:SerializedName("longitude")
-	val longitude: Double,
+	var longitude: Double,
 
 	@field:SerializedName("user_id")
-	val userId: Int,
+	var userId: Int,
 
 	@field:SerializedName("user")
-	val user: User? = null,
+	var user: User? = null,
 
 	@field:SerializedName("provinsi_id")
-	val provinsiId: Int,
+	var provinsiId: Int,
 
 	@field:SerializedName("provinsi")
-	val provinsi: Provinsi? = null,
+	var provinsi: Provinsi? = null,
 
 	@field:SerializedName("kabupaten_id")
-	val kabupatenId: Int,
+	var kabupatenId: Int,
 
 	@field:SerializedName("kabupaten")
-	val kabupaten: Kabupaten? = null,
+	var kabupaten: Kabupaten? = null,
 
 	@field:SerializedName("kecamatan_id")
-	val kecamatanId: Int,
+	var kecamatanId: Int,
 
 	@field:SerializedName("kecamatan")
-	val kecamatan: Kecamatan? = null,
+	var kecamatan: Kecamatan? = null,
 
 	@field:SerializedName("created_at")
-	val createdAt: String,
+	var createdAt: String,
 
 	@field:SerializedName("updated_at")
-	val updatedAt: String,
+	var updatedAt: String,
 
 	@field:SerializedName("deleted_at")
-	val deletedAt: String? = null,
+	var deletedAt: String? = null,
 ) : Parcelable

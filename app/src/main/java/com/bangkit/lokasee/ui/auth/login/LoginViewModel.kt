@@ -12,9 +12,10 @@ class LoginViewModel(private val repository: Repository) : ViewModel() {
         userName: String,
         email: String,
         phoneNumber: String,
+        address: String,
         avatarUrl: String,
         token: String
     ) {
-        repository.saveUser(userId, userName, email, phoneNumber, avatarUrl, token)
+        repository.saveAuthUser(userId, userName, email, phoneNumber, address, avatarUrl, token)
     }
 }

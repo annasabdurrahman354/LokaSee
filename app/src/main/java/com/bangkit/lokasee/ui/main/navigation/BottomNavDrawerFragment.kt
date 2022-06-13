@@ -1,4 +1,4 @@
-package com.bangkit.lokasee.ui.main
+package com.bangkit.lokasee.ui.main.navigation
 
 import android.animation.ValueAnimator
 import android.content.res.ColorStateList
@@ -10,6 +10,7 @@ import android.widget.FrameLayout
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import com.bangkit.lokasee.R
+import com.bangkit.lokasee.data.store.UserStore.currentUser
 import com.bangkit.lokasee.databinding.BottomNavDrawerMainBinding
 import com.bangkit.lokasee.util.*
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -19,13 +20,15 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_HALF_EX
 import com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_HIDDEN
 import com.google.android.material.bottomsheet.BottomSheetBehavior.from
 import com.google.android.material.shape.MaterialShapeDrawable
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import kotlin.LazyThreadSafetyMode.NONE
 import kotlin.math.abs
 
 /**
  * A [Fragment] which acts as a bottom navigation drawer.
  */
-class BottomNavDrawerFragment : Fragment(){
+class BottomNavDrawerFragment : Fragment(), NavigationAdapter.NavigationAdapterListener{
 
     /**
      * Enumeration of states in which the account picker can be in.
@@ -50,12 +53,12 @@ class BottomNavDrawerFragment : Fragment(){
     }
 
     private lateinit var binding: BottomNavDrawerMainBinding
-
+    private val adapter = NavigationAdapter(this@BottomNavDrawerFragment)
     private val behavior: BottomSheetBehavior<FrameLayout> by lazy(NONE) { from(binding.containerBackground) }
-
     private val bottomSheetCallback = BottomNavigationDrawerCallback()
-
     private val sandwichSlideActions = mutableListOf<OnSandwichSlideAction>()
+    private val navigationListeners: MutableList<NavigationAdapter.NavigationAdapterListener> =
+        mutableListOf()
 
     private val backgroundShapeDrawable: MaterialShapeDrawable by lazy(NONE) {
         val backgroundContext = binding.containerBackground.context
@@ -154,7 +157,8 @@ class BottomNavDrawerFragment : Fragment(){
         binding.run {
             containerBackground.background = backgroundShapeDrawable
             containerForeground.background = foregroundShapeDrawable
-
+            behavior.isFitToContents = true
+            behavior.isDraggable = false
             scrimView.setOnClickListener { close() }
 
             bottomSheetCallback.apply {
@@ -168,23 +172,7 @@ class BottomNavDrawerFragment : Fragment(){
                     binding.imgProfile
                 ))
                 // Recycler transforms
-
-
-
-
-
-
-
-                // addOnStateChangedAction(ScrollToTopStateAction(rvNavigation))
-
-
-
-
-
-
-
-
-
+                addOnStateChangedAction(ScrollToTopStateAction(navRecyclerView))
 
                 // Close the sandwiching account picker if open
                 addOnStateChangedAction(object : OnStateChangedAction {
@@ -201,10 +189,21 @@ class BottomNavDrawerFragment : Fragment(){
                 })
             }
 
-            imgProfile.setOnClickListener { toggleSandwich() }
+
+            Glide.with(requireActivity())
+                .load(getAvatarUrl(currentUser))
+                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                .into(binding.imgProfile)
 
             behavior.addBottomSheetCallback(bottomSheetCallback)
             behavior.state = STATE_HIDDEN
+
+
+            navRecyclerView.adapter = adapter
+            NavigationModel.navigationList.observe(viewLifecycleOwner) {
+                adapter.submitList(it)
+            }
+            NavigationModel.setNavigationMenuItemChecked(0)
         }
     }
 
@@ -235,12 +234,23 @@ class BottomNavDrawerFragment : Fragment(){
         bottomSheetCallback.addOnStateChangedAction(action)
     }
 
+    fun addNavigationListener(listener: NavigationAdapter.NavigationAdapterListener) {
+        navigationListeners.add(listener)
+    }
+
     /**
      * Add actions to be run when the slide offset (animation progress) or the sandwiching account
      * picker has changed.
      */
     fun addOnSandwichSlideAction(action: OnSandwichSlideAction) {
         sandwichSlideActions.add(action)
+    }
+
+    override fun onNavMenuItemClicked(item: NavigationModelItem.NavMenuItem) {
+        NavigationModel.setNavigationMenuItemChecked(item.id)
+        adapter.notifyDataSetChanged()
+        close()
+        navigationListeners.forEach { it.onNavMenuItemClicked(item) }
     }
 
     /**

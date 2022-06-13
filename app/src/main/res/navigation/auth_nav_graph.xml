@@ -15,7 +15,7 @@
             app:destination="@id/registerFragment" />
         <action
             android:id="@+id/action_loginFragment_to_navigation_graph"
-            app:destination="@id/navigation_graph" />
+            app:destination="@id/main_nav_graph" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"

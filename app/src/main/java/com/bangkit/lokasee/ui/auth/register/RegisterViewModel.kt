@@ -5,6 +5,6 @@ import com.bangkit.lokasee.data.Repository
 
 class RegisterViewModel(private val repository: Repository) : ViewModel() {
 
-    fun register(name: String, email: String, phoneNumber: String, password: String) =
-        repository.register(name, email, phoneNumber, password)
+    fun register(name: String, email: String, phoneNumber: String, address: String, password: String) =
+        repository.register(name, email, phoneNumber, address, password)
 }

@@ -9,23 +9,23 @@
     android:paddingBottom="@dimen/bottom_app_bar_height"
     app:layout_behavior="@string/appbar_scrolling_view_behavior" >
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/btnLogout"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:text="Logout"/>
-
     <LinearLayout
         android:id="@+id/btnLocation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/bg_location"
+        android:backgroundTint="@color/lokasee_blue_200"
         android:clickable="true"
         android:foreground="@drawable/bottom_app_bar_title_foreground"
+        android:gravity="center_vertical"
         android:orientation="horizontal"
+        android:padding="4dp"
+        android:paddingEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -36,10 +36,11 @@
             android:backgroundTint="@color/lokasee_blue_600" />
 
         <TextView
+            android:id="@+id/txtLocationFilter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="Jebres, Kota Surakarta"
+            android:text="Indonesia"
             android:textAppearance="@style/TextAppearance.LokaSee.Body1"
             android:textColor="@color/lokasee_blue_600" />
 
@@ -50,6 +51,7 @@
         android:layout_width="0dp"
         android:layout_height="130dp"
         android:layout_marginTop="16dp"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnLocation" />
@@ -61,6 +63,7 @@
         android:alpha="0.6"
         android:text="Nearby Land"
         android:textAppearance="@style/TextAppearance.LokaSee.Headline4.5"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/btnMoreNearbyLand"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/btnMoreNearbyLand" />
@@ -74,6 +77,7 @@
         android:background="?attr/actionBarItemBackground"
         android:padding="@dimen/grid_0_25"
         android:scaleType="fitCenter"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rvHero"
         app:srcCompat="@drawable/ic_arrow_forward"
@@ -83,14 +87,19 @@
         android:id="@+id/rvNearbyLand"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:clipToPadding="false"
+        android:paddingBottom="72dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnMoreNearbyLand" />
+        app:layout_constraintTop_toBottomOf="@+id/btnMoreNearbyLand"
+        app:layout_constraintVertical_bias="0.0" />
 
     <ProgressBar
-        android:id="@+id/progressBar"
+        android:id="@+id/progHome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:elevation="90dp"
@@ -100,4 +109,32 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:visibility="visible" />
+
+    <Button
+        android:id="@+id/btnReloadHome"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="8dp"
+        android:paddingLeft="32dp"
+        android:paddingRight="32dp"
+        android:text="Reload"
+        android:textAppearance="@style/TextAppearance.LokaSee.Button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtErrorHome" />
+
+    <TextView
+        android:id="@+id/txtErrorHome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textAppearance="@style/TextAppearance.LokaSee.Body2"
+        android:textColor="@color/lokasee_red_200"
+        app:layout_constraintBottom_toTopOf="@+id/btnReloadHome"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/progHome" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

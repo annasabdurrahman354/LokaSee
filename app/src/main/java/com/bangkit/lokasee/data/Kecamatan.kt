@@ -1,6 +1,7 @@
 package com.bangkit.lokasee.data
 
 import android.os.Parcelable
+import com.bangkit.lokasee.util.capitalizeWords
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
@@ -15,4 +16,9 @@ data class Kecamatan(
 
 	@field:SerializedName("title")
 	val title: String
-) : Parcelable
+) : Parcelable {
+
+	override fun toString(): String {
+		return title
+	}
+}

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">LokaSee</string>
+    <string name="app_name">Lokasee</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="str_password_input_invalid">Password should be more than 6 characters!</string>
@@ -19,7 +19,7 @@
     <string name="error_input_phone_number">Please insert your phone number!</string>
     <string name="error_input_password">Please insert your password!</string>
     <string name="error_email_not_valid">Email is not valid!</string>
-    <string name="error_password_less_than_6_char">Password less than 6 character!</string>
+    <string name="error_password_less_than_8_char">Password less than 8 character!</string>
 
     <string name="title_alert_success">Yeah!</string>
     <string name="title_alert_failed">Oops!</string>

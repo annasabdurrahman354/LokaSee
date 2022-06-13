@@ -5,6 +5,7 @@
     android:id="@+id/cardPost"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:checkable="true"
     android:clickable="true"
     android:focusable="true"
     app:cardCornerRadius="@dimen/lokasee_large_component_corner_radius"
@@ -29,7 +30,7 @@
             app:carouselType="BLOCK"
             app:imagePlaceholder="@color/lokasee_orange_500"
             app:imageScaleType="centerCrop"
-            app:indicatorMargin="32dp"
+            app:indicatorMargin="8dp"
             app:infiniteCarousel="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -49,12 +50,17 @@
             android:id="@+id/txtPostLocation"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/grid_2"
-            android:layout_marginTop="@dimen/grid_2"
+            android:layout_marginStart="@dimen/grid_1"
+            android:layout_marginTop="@dimen/grid_1"
+            android:background="@drawable/bg_location"
             android:drawableLeft="@drawable/ic_twotone_location"
             android:drawablePadding="4dp"
             android:fontFamily="@font/worksans_medium"
             android:maxLines="1"
+            android:paddingStart="6dp"
+            android:paddingTop="2dp"
+            android:paddingEnd="8dp"
+            android:paddingBottom="2dp"
             android:text="Laweyan, Surakarta"
             android:textAppearance="@style/TextAppearance.LokaSee.Body2"
             android:textColor="@color/lokasee_white_50"
@@ -79,11 +85,10 @@
             app:layout_goneMarginEnd="@dimen/grid_2" />
 
         <TextView
-            android:id="@+id/txtPostDesc"
+            android:id="@+id/txtPostPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/grid_2"
-            android:layout_marginTop="@dimen/grid_1"
             android:maxLines="2"
             android:text="Rp 120.000.000"
             android:textAppearance="@style/TextAppearance.LokaSee.Headline6"
@@ -98,9 +103,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:text="120 m²"
-            app:layout_constraintBottom_toBottomOf="@+id/txtPostDesc"
-            app:layout_constraintStart_toEndOf="@+id/txtPostDesc"
-            app:layout_constraintTop_toTopOf="@+id/txtPostDesc" />
+            app:layout_constraintBottom_toBottomOf="@+id/txtPostPrice"
+            app:layout_constraintStart_toEndOf="@+id/txtPostPrice"
+            app:layout_constraintTop_toTopOf="@+id/txtPostPrice" />
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/imgPostSellerProfile"
@@ -108,7 +113,7 @@
             android:layout_height="@dimen/email_sender_profile_image_size"
             android:layout_marginEnd="@dimen/grid_2"
             android:background="@drawable/avatar_0"
-            android:elevation="@dimen/plane_08"
+            android:elevation="@dimen/plane_02"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/txtPostTitle"
             app:shapeAppearanceOverlay="@style/roundedImageViewRounded" />

@@ -16,4 +16,9 @@ object Injection {
         val userPreference = AppPreferences.getInstance(context.dataStore)
         return Repository.getInstance(apiService, userPreference)
     }
+    fun reProvideRepository(context: Context): Repository {
+        val apiService = ApiConfig.getApiService()
+        val userPreference = AppPreferences.getInstance(context.dataStore)
+        return Repository.newInstance(apiService, userPreference)
+    }
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/navigation_graph"
+    android:id="@+id/main_nav_graph"
     app:startDestination="@id/homeFragment">
     <fragment
         android:id="@+id/homeFragment"
@@ -12,12 +12,19 @@
         android:id="@+id/mapFragment"
         android:name="com.bangkit.lokasee.ui.main.map.MapFragment"
         android:label="MapFragment">
+        <action
+            android:id="@+id/action_mapFragment_to_postFragment"
+            app:destination="@id/postFragment" />
     </fragment>
     <fragment
         android:id="@+id/postFragment"
         android:name="com.bangkit.lokasee.ui.main.post.PostFragment"
         android:label="PostFragment">
     </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.bangkit.lokasee.ui.main.profile.ProfileFragment"
+        android:label="ProfileFragment"/>
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.bangkit.lokasee.ui.main.search.SearchFragment"
@@ -26,18 +33,70 @@
         android:id="@+id/action_global_homeFragment"
         app:destination="@+id/homeFragment"
         app:launchSingleTop="true"
-        app:popUpTo="@+id/navigation_graph"
+        app:popUpTo="@+id/main_nav_graph"
         app:popUpToInclusive="true"/>
     <action
         android:id="@+id/action_global_mapFragment"
         app:destination="@id/mapFragment"
         app:launchSingleTop="true"
-        app:popUpTo="@+id/navigation_graph"
+        app:popUpTo="@+id/main_nav_graph"
         app:popUpToInclusive="true" />
     <action
+        android:id="@+id/action_global_profileFragment"
+        app:destination="@+id/profileFragment"
+        app:launchSingleTop="true"
+        app:popUpTo="@+id/main_nav_graph"
+        app:popUpToInclusive="true"/>
+    <action
         android:id="@+id/action_global_searchFragment"
-        app:destination="@+id/searchFragment" />
+        app:destination="@+id/searchFragment"
+        app:launchSingleTop="true"
+        app:popUpTo="@+id/main_nav_graph"
+        app:popUpToInclusive="true"/>
     <action
         android:id="@+id/action_global_postFragment"
         app:destination="@id/postFragment" />
+
+    <fragment
+        android:id="@+id/sellerHomeFragment"
+        android:name="com.bangkit.lokasee.ui.main.seller.SellerHomeFragment"
+        android:label="Seller Management">
+
+        <action
+            android:id="@+id/action_sellerHomeFragment_to_sellerCreateFragment"
+            app:destination="@id/sellerCreateFragment" />
+        <action
+            android:id="@+id/action_sellerHomeFragment_to_sellerUpdateFragment"
+            app:destination="@id/sellerUpdateFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/sellerCreateFragment"
+        android:name="com.bangkit.lokasee.ui.main.seller.SellerCreateFragment"
+        android:label="Create Post">
+
+        <action
+            android:id="@+id/action_sellerCreateFragment_to_sellerHomeFragment"
+            app:destination="@id/sellerHomeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/sellerUpdateFragment"
+        android:name="com.bangkit.lokasee.ui.main.seller.SellerUpdateFragment"
+        android:label="Update Post">
+
+        <action
+            android:id="@+id/action_sellerUpdateFragment_to_sellerHomeFragment"
+            app:destination="@id/sellerHomeFragment" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_sellerHomeFragment"
+        app:destination="@id/sellerHomeFragment"
+        app:launchSingleTop="true"
+        app:popUpTo="@+id/main_nav_graph"
+        app:popUpToInclusive="true"/>
+
+    <action
+        android:id="@+id/action_global_sellerCreateFragment"
+        app:destination="@id/sellerCreateFragment" />
+
 </navigation>

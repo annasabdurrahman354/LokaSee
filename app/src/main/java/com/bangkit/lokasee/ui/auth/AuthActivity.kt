@@ -3,16 +3,15 @@ package com.bangkit.lokasee.ui.auth
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import com.bangkit.lokasee.R
-import com.bangkit.lokasee.data.User
 import com.bangkit.lokasee.data.store.UserStore
 import com.bangkit.lokasee.ui.main.MainActivity
-import com.bangkit.lokasee.util.AppPreferences
-import com.bangkit.lokasee.util.retrofit.ApiConfig
+import com.bangkit.lokasee.data.AppPreferences
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 
@@ -26,24 +25,18 @@ class AuthActivity : AppCompatActivity() {
         pref = AppPreferences.getInstance(dataStore)
         runBlocking {
             if (pref.getUserToken().first() != "") {
-                UserStore.currentUser = User(
-                    pref.getUserID().first(),
-                    pref.getUserName().first(),
-                    pref.getUserEmail().first(),
-                    pref.getUserPhone().first(),
-                    pref.getUserAvatarUrl().first(),
-                    null,
-                    null,
-                    null
-                )
+
+                UserStore.currentUser = pref.getUserLogin()
                 UserStore.currentUserToken = pref.getUserToken().first()
-                ApiConfig.TOKEN = UserStore.currentUserToken!!
+                Log.e("ini", UserStore.currentUser.toString())
+                Log.e("ini", UserStore.currentUserToken.toString())
             }
         }
-        if (UserStore.currentUserToken != null) {
+        if (UserStore.currentUserToken != "") {
             val intent = Intent(this, MainActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)
+            finish()
         }
 
         setContentView(R.layout.activity_auth)

@@ -10,7 +10,7 @@ import kotlinx.android.parcel.Parcelize
 data class KecamatanListResponse(
 
 	@field:SerializedName("data")
-	val data: List<Kecamatan?>? = null,
+	val data: List<Kecamatan>? = null,
 
 	@field:SerializedName("message")
 	val message: String
